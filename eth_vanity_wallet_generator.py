@@ -3,6 +3,7 @@ import secrets
 import multiprocessing
 import time
 import math
+import string
 
 
 def main():
@@ -15,8 +16,14 @@ def main():
             print('you must have at least one wallet prefix inputted')
         elif val == 'n' and not len(input_strings) == 0:
             break
-        input_strings.append(val)
-
+        test = True
+        for c in val:
+            if c not in string.hexdigits:
+                print('input string must only contain a-f or 0-9')
+                test = False
+                break
+        if test:
+            input_strings.append(val)
     hour = input('How long would you like to search for wallets? (in hours): ')
     avail_cpus = multiprocessing.cpu_count()
     processes = []
